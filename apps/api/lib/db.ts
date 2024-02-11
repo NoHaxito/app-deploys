@@ -1,26 +1,25 @@
 // @ts-ignore
-import pkg from 'pg';
-const { Pool } = pkg;
-import { Kysely, PostgresDialect } from 'kysely';
+
+import { Kysely } from 'kysely';
+import { PostgresJSDialect } from 'kysely-postgres-js';
+import postgres from 'postgres';
 import { env } from './env';
 
 const config = {
-	user: env.POSTGRESQL_USER,
-	password: env.POSTGRESQL_PASSWORD,
-	host: env.POSTGRESQL_HOST,
+	user: env.VITE_POSTGRESQL_USER,
+	password: env.VITE_POSTGRESQL_PASSWORD,
+	host: env.VITE_POSTGRESQL_HOST,
 	port: 19091,
 	database: 'defaultdb',
 	ssl: {
 		rejectUnauthorized: true,
-		ca: env.POSTGRESQL_SSL_CERTIFICATE
+		ca: env.VITE_POSTGRESQL_SSL_CERTIFICATE
 	}
 };
 
-export const pool = new Pool(config);
-
 export const db = new Kysely<Database>({
-	dialect: new PostgresDialect({
-		pool
+	dialect: new PostgresJSDialect({
+		postgres: postgres(config)
 	})
 });
 
