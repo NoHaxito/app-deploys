@@ -9,7 +9,7 @@
 	import { Separator } from './ui/separator';
 	import { sidebarMobile } from '../store';
 
-	const isDesktop = mediaQuery('(min-width: 768px)');
+	const isDesktop = mediaQuery('(min-width: 967px)');
 	$: if ($navigating) {
 		if ($sidebarMobile) $sidebarMobile = false;
 	}

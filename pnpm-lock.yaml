@@ -64,46 +64,6 @@ importers:
         specifier: ^3.27.0
         version: 3.28.1(@cloudflare/workers-types@4.20240208.0)
 
-  apps/api-v2:
-    dependencies:
-      dotenv:
-        specifier: ^16.4.1
-        version: 16.4.1
-      hono:
-        specifier: ^4.0.0
-        version: 4.0.0
-      honox:
-        specifier: ^0.1.0
-        version: 0.1.0(hono@4.0.0)
-      kysely:
-        specifier: ^0.27.2
-        version: 0.27.2
-      kysely-postgres-js:
-        specifier: ^2.0.0
-        version: 2.0.0(kysely@0.27.2)(postgres@3.4.3)
-      pg:
-        specifier: ^8.11.3
-        version: 8.11.3
-      postgres:
-        specifier: ^3.4.3
-        version: 3.4.3
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20240208.0
-        version: 4.20240208.0
-      '@hono/vite-cloudflare-pages':
-        specifier: ^0.2.4
-        version: 0.2.4(hono@4.0.0)
-      '@types/pg':
-        specifier: ^8.11.0
-        version: 8.11.0
-      vite:
-        specifier: ^5.0.12
-        version: 5.1.1
-      wrangler:
-        specifier: ^3.27.0
-        version: 3.28.1(@cloudflare/workers-types@4.20240208.0)
-
   apps/web:
     dependencies:
       '@lucia-auth/adapter-postgresql':
@@ -221,6 +181,9 @@ importers:
       svelte-check:
         specifier: ^3.6.4
         version: 3.6.4(postcss-load-config@5.0.3)(postcss@8.4.35)(svelte@4.2.10)
+      svelte-intersection-observer:
+        specifier: ^1.0.0
+        version: 1.0.0
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.1
@@ -4413,6 +4376,10 @@ packages:
       svelte: ^3.19.0 || ^4.0.0
     dependencies:
       svelte: 4.2.10
+
+  /svelte-intersection-observer@1.0.0:
+    resolution: {integrity: sha512-AoxSog8fSt9sSN8ajMYM1I48ndq+rmPlaZSkJFCRbZ7I3KO8IPX6pl5mewWxdYL1JDI06hHu/7epn3h5tlJV9w==}
+    dev: true
 
   /svelte-legos@0.2.2(svelte@4.2.10):
     resolution: {integrity: sha512-HTVkCIqhrxdy+OpXjxGr/4xIJEGv4d2cRQwTjm0SYfLw/YF1I1l/TQR59nb2WvjccnO8TNFNTvAWP5pgXQnU+w==}

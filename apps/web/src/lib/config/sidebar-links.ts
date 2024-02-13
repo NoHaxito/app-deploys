@@ -1,14 +1,14 @@
-import { Cards, GridFour } from 'phosphor-svelte';
+import { CirclesFour, House } from 'phosphor-svelte';
 
 export const sidebarLinks = [
 	{
-		icon: GridFour,
+		icon: House,
 		title: 'Dashboard',
 		href: '/',
 		disabled: false
 	},
 	{
-		icon: Cards,
+		icon: CirclesFour,
 		title: 'Applications',
 		href: '/apps',
 		disabled: false

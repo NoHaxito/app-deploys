@@ -17,7 +17,7 @@
 				on:click={() => ($sidebarMobile = !$sidebarMobile)}
 				variant="outline"
 				size="icon"
-				class="flex h-8 w-8 md:hidden"><List /></Button
+				class="flex h-8 w-8 min-[967px]:hidden"><List /></Button
 			>
 			<a href="/" class="flex items-center space-x-2 transition-transform ease-in active:scale-95">
 				<Stack class="h-6 w-6" weight="fill" />

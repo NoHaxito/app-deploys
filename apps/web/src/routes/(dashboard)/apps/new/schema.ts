@@ -4,11 +4,7 @@ export const applicationSchema = z.object({
 		.string()
 		.min(6, { message: 'Name must be at least 6 characters' })
 		.max(56, { message: 'Name must be at most 56 characters' }),
-	description: z
-		.string()
-		.min(6, { message: 'Description must be at least 6 characters' })
-		.max(256, { message: 'Description must be at most 256 characters' }),
-
+	description: z.string().optional(),
 	type: z
 		.enum(['nodejs', 'database', 'dockerfile', 'wordpress', 'nginx'], {
 			required_error: 'You need to choose a application type'
@@ -25,11 +21,23 @@ export const applicationSchema = z.object({
 				});
 			}
 		}),
-	branch: z.string(),
+	branch: z.string().min(1, { message: 'Branch is required' }),
 	install_command: z.string().optional(),
 	build_command: z.string().optional(),
 	start_command: z.string().optional(),
-	environment_variables: z.string().optional()
+	// env_vars: z
+	// 	.object({
+	// 		key: z.string(),
+	// 		value: z.string()
+	// 	})
+	// 	.array()
+	// 	.optional(),
+	environment_variables: z.string().optional(),
+	instance_type: z
+		.enum(['free', 'starter', 'pro'], {
+			required_error: 'You need to choose a application instance type'
+		})
+		.default('free')
 });
 // export const
 export type TypeSchemaForm = typeof applicationSchema;
