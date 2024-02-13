@@ -7,9 +7,11 @@
 	import { ProgressBar } from '@prgm/sveltekit-progress-bar';
 	import { Warning } from 'phosphor-svelte';
 	import CommandMenu from '$/lib/components/command-menu.svelte';
+	import { Toaster } from '$/lib/components/ui/sonner';
 	const { data } = $page;
 </script>
 
+<Toaster />
 <ProgressBar class="text-indigo-500" zIndex={100} />
 <ModeWatcher />
 <CommandMenu />

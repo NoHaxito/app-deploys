@@ -1,18 +1,20 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
+import { zod } from 'sveltekit-superforms/adapters';
 import { Argon2id } from 'oslo/password';
 import { db } from '$/lib/server/db';
 import { loginFormSchema } from './auth-login-form.svelte';
 import { lucia } from '$/lib/server/lucia';
+
 export const load: PageServerLoad = async () => {
 	return {
-		form: await superValidate(loginFormSchema)
+		form: await superValidate(zod(loginFormSchema))
 	};
 };
 export const actions: Actions = {
 	default: async (event) => {
-		const form = await superValidate(event, loginFormSchema);
+		const form = await superValidate(event, zod(loginFormSchema));
 		if (!form.valid) {
 			return fail(400, {
 				form

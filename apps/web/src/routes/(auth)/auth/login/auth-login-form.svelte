@@ -9,18 +9,19 @@
 
 <script lang="ts">
 	import * as Form from '$lib/components/ui/form';
+	import { zod } from 'sveltekit-superforms/adapters';
 	import { toast } from 'svelte-sonner';
-	import type { SuperValidated } from 'sveltekit-superforms';
+	import type { Infer, SuperValidated } from 'sveltekit-superforms';
 	import { Button } from '$components/ui/button';
 	import { cn } from '$lib/utils';
 	import { CircleNotch, GithubLogo, GoogleLogo } from 'phosphor-svelte';
 	import { superForm } from 'sveltekit-superforms/client';
 	let className: string | undefined | null = undefined;
 	export { className as class };
-	export let form: SuperValidated<FormSchema>;
+	export let form: SuperValidated<Infer<FormSchema>>;
 
 	const superFrm = superForm(form, {
-		validators: loginFormSchema,
+		validators: zod(loginFormSchema),
 		onResult(event) {
 			if (event.result.type === 'failure') {
 				toast.error('Something went wrong!', {
@@ -78,7 +79,7 @@
 			<span class="w-full border-t" />
 		</div>
 		<div class="relative flex justify-center text-xs uppercase">
-			<span class="bg-background px-2 text-muted-foreground"> Or continue with </span>
+			<span class="bg-background text-muted-foreground px-2"> Or continue with </span>
 		</div>
 	</div>
 	<div class="grid gap-1 sm:grid-cols-2">

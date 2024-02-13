@@ -1,6 +1,7 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
+import { zod } from 'sveltekit-superforms/adapters';
 import { registerFormSchema } from './auth-register-form.svelte';
 import { generateId } from 'lucia';
 import { Argon2id } from 'oslo/password';
@@ -8,12 +9,12 @@ import { db } from '$/lib/server/db';
 import { sql } from 'kysely';
 export const load: PageServerLoad = async () => {
 	return {
-		form: await superValidate(registerFormSchema)
+		form: await superValidate(zod(registerFormSchema))
 	};
 };
 export const actions: Actions = {
 	default: async (event) => {
-		const form = await superValidate(event, registerFormSchema);
+		const form = await superValidate(event, zod(registerFormSchema));
 		if (!form.valid) {
 			return fail(400, {
 				form

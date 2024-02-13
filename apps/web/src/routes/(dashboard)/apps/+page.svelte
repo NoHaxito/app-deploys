@@ -8,14 +8,14 @@
 
 <div class="space-y-4">
 	<PageHeader>
-		<svelte:fragment slot="title">Projects</svelte:fragment>
+		<svelte:fragment slot="title">Applications</svelte:fragment>
 		<svelte:fragment slot="description"
-			>List all projects asociated with your account.</svelte:fragment
+			>List all applications asociated with your account.</svelte:fragment
 		>
 		<svelte:fragment slot="actions">
-			<Button href="/projects/new" size="xs">
+			<Button href="/apps/new" size="xs">
 				<Plus />
-				New project
+				New app
 			</Button>
 		</svelte:fragment>
 	</PageHeader>

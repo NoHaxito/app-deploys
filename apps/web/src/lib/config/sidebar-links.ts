@@ -9,8 +9,8 @@ export const sidebarLinks = [
 	},
 	{
 		icon: Cards,
-		title: 'Projects',
-		href: '/projects',
+		title: 'Applications',
+		href: '/apps',
 		disabled: false
 	}
 ];
