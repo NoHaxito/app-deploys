@@ -1,11 +1,11 @@
 import { Lucia } from 'lucia';
-import { dev } from '$app/environment';
+// import { dev } from '$app/environment';
 import { pool } from './db';
 import { NodePostgresAdapter } from '@lucia-auth/adapter-postgresql';
 
 const adapter = new NodePostgresAdapter(pool, {
-	user: 'auth_user',
-	session: 'user_session'
+	user: 'users',
+	session: 'user_sessions'
 });
 export const lucia = new Lucia(adapter, {
 	sessionCookie: {
@@ -19,7 +19,8 @@ export const lucia = new Lucia(adapter, {
 			username: attributes.username,
 			email: attributes.email,
 			avatar_url: attributes.avatar_url,
-			role: attributes.role
+			role: attributes.role,
+			current_plan: attributes.current_plan
 		};
 	}
 });
@@ -35,4 +36,5 @@ interface DatabaseSessionAttributes {
 	email: string;
 	avatar_url: string;
 	role: string;
+	current_plan: string;
 }

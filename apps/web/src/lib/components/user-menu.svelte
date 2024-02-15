@@ -18,6 +18,8 @@
 	import { Button } from './ui/button';
 	import { commandMenu } from '../store';
 	import { enhance } from '$app/forms';
+	import { redirect } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
 	export let user: Session | null;
 </script>
 
@@ -26,7 +28,7 @@
 		<Avatar.Root class="size-8">
 			<Avatar.Image src={user?.avatar_url} alt="@huntabyte" class="aspect-square h-full w-full" />
 			<Avatar.Fallback
-				class="flex h-full w-full items-center justify-center rounded-full bg-muted text-xs"
+				class="bg-muted flex h-full w-full items-center justify-center rounded-full text-xs"
 				>{user?.username.slice(0, 2).toUpperCase()}</Avatar.Fallback
 			>
 		</Avatar.Root>
@@ -71,11 +73,15 @@
 			</DropdownMenu.Item>
 			<DropdownMenu.Separator />
 		{/if}
-		<form action="/?logout" method="post" use:enhance>
+		<DropdownMenu.Item on:click={() => goto('/auth/logout')}>
+			<SignOut weight="fill" class="text-foreground-alt" />
+			Logout
+		</DropdownMenu.Item>
+		<!-- <form action="/?logout" method="post" use:enhance>
 			<Button class="h-max w-full justify-start px-2 py-1.5" variant="ghost" type="submit">
 				<SignOut weight="fill" class="text-foreground-alt" />
 				Logout
 			</Button>
-		</form>
+		</form> -->
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

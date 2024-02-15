@@ -30,7 +30,7 @@ export const actions: Actions = {
 		}
 		// check if email exists
 		const emailExists = await db
-			.selectFrom('auth_user')
+			.selectFrom('users')
 			.selectAll()
 			.where('email', '=', data.email)
 			.executeTakeFirst();
@@ -45,11 +45,11 @@ export const actions: Actions = {
 		const hashedPassword = await new Argon2id().hash(data.password);
 		// check if is first register
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const result = await sql<any>`select count(*) from auth_user`.execute(db);
+		const result = await sql<any>`select count(*) from users`.execute(db);
 		const isFirstRegister = Number(result.rows[0].count) === 0;
 
 		await db
-			.insertInto('auth_user')
+			.insertInto('users')
 			.values({
 				id: userId,
 				email: data.email,

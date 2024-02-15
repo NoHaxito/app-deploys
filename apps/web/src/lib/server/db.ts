@@ -2,6 +2,7 @@ import pkg from 'pg';
 const { Pool } = pkg;
 import { Kysely, PostgresDialect } from 'kysely';
 import { env } from '../env';
+import type { Database } from '../types';
 
 const config = {
 	user: env.POSTGRESQL_USER,
@@ -22,27 +23,3 @@ export const db = new Kysely<Database>({
 		pool
 	})
 });
-
-interface Database {
-	auth_user: UserTable;
-	oauth_account: OauthAccountTable;
-	user_session: SessionTable;
-}
-interface UserTable {
-	id: string;
-	username: string;
-	email: string;
-	avatar_url: string;
-	hashed_password: string;
-	role?: 'user' | 'admin';
-}
-interface SessionTable {
-	id: string;
-	user_id: string;
-	expires_at: Date;
-}
-interface OauthAccountTable {
-	provider_id: string;
-	provider_user_id: string;
-	user_id: string;
-}

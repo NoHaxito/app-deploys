@@ -69,6 +69,9 @@ importers:
       '@lucia-auth/adapter-postgresql':
         specifier: ^3.1.0
         version: 3.1.0(lucia@3.0.1)(pg@8.11.3)
+      '@tanstack/svelte-query':
+        specifier: ^5.20.5
+        version: 5.20.5(svelte@4.2.10)
       bits-ui:
         specifier: ^0.17.0
         version: 0.17.0(svelte@4.2.10)
@@ -1927,6 +1930,19 @@ packages:
     resolution: {integrity: sha512-aYX01Ke9hunpoCexYAgQucEpARGQ5w/cqHFrIR+e9gdKb1QWTsVJuTJ2ozQzIAxLyRQe/m+2RqzkyOOGiMKRQA==}
     dependencies:
       tslib: 2.6.2
+    dev: false
+
+  /@tanstack/query-core@5.20.5:
+    resolution: {integrity: sha512-T1W28gGgWn0A++tH3lxj3ZuUVZZorsiKcv+R50RwmPYz62YoDEkG4/aXHZELGkRp4DfrW07dyq2K5dvJ4Wl1aA==}
+    dev: false
+
+  /@tanstack/svelte-query@5.20.5(svelte@4.2.10):
+    resolution: {integrity: sha512-Ji9rE4ovy1m9i1chb/06JdEksNM+KzQlRfbdKvaaNTSpa6vp/Bj5PO9P7dq7EmVDsuFZgixUmF7VPzNvMQ8vNw==}
+    peerDependencies:
+      svelte: ^3.54.0 || ^4.0.0 || ^5.0.0-next.0
+    dependencies:
+      '@tanstack/query-core': 5.20.5
+      svelte: 4.2.10
     dev: false
 
   /@tybys/wasm-util@0.8.1:

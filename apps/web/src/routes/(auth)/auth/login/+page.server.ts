@@ -24,7 +24,7 @@ export const actions: Actions = {
 		const data = form.data;
 		// check if email exists
 		const emailExists = await db
-			.selectFrom('auth_user')
+			.selectFrom('users')
 			.selectAll()
 			.where('email', '=', data.email)
 			.executeTakeFirst();
@@ -45,7 +45,8 @@ export const actions: Actions = {
 			avatar_url: emailExists.avatar_url,
 			email: emailExists.email,
 			username: emailExists.username,
-			role: emailExists.role ?? 'user'
+			role: emailExists.role ?? 'user',
+			current_plan: emailExists.current_plan ?? 'free'
 		});
 		const sessionCookie = lucia.createSessionCookie(session.id);
 		event.cookies.set(sessionCookie.name, sessionCookie.value, {

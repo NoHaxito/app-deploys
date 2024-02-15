@@ -1,8 +1,3 @@
-export type SidebarItem = {
-	active?: boolean;
-	href: string;
-};
-
 export interface Database {
 	users: UserTable;
 	user_oauth_account: OauthAccountTable;
