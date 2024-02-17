@@ -40,4 +40,4 @@ export const applicationSchema = z.object({
 		.default('free')
 });
 // export const
-export type TypeSchemaForm = typeof applicationSchema;
+export type ApplicationSchema = typeof applicationSchema;

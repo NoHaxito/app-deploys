@@ -9,8 +9,8 @@ export const sidebarLinks = [
 	},
 	{
 		icon: CirclesFour,
-		title: 'Applications',
-		href: '/apps',
+		title: 'Services',
+		href: '/services',
 		disabled: false
 	}
 ];

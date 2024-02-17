@@ -4,16 +4,17 @@
 	import { Button, buttonVariants } from '../ui/button';
 	import * as Drawer from '$components/ui/drawer';
 	import type { Infer, SuperForm } from 'sveltekit-superforms';
-	import type { TypeSchemaForm } from '$/routes/(dashboard)/apps/new/schema';
+	import type { TypeSchemaForm } from '$/routes/(dashboard)/services/new/schema';
 	import { instanceTypes } from '$/lib/config/application-instance-type';
 	import { applicationTypes } from '$/lib/config/application-types';
 	export let isRepoLoaded: boolean;
-	export let form: SuperForm<Infer<TypeSchemaForm>>;
-	const { submitting, form: formData } = form;
+	export let isSubmitting: boolean;
+	export let formData: SuperForm<Infer<TypeSchemaForm>>['form'];
 	export let isLoadingRepository: boolean;
 	export let loadBranches: () => Promise<string | number | undefined>;
-	const selectedApplicationType = applicationTypes.find((i) => i.value === $formData.type);
-	const selectedInstance = instanceTypes.find((i) => i.value === $formData.instance_type);
+
+	$: selectedApplicationType = applicationTypes.find((i) => i.value === $formData.type);
+	$: selectedInstance = instanceTypes.find((i) => i.value === $formData.instance_type);
 </script>
 
 <Drawer.Root direction="right">
@@ -32,7 +33,7 @@
 			<div class="space-y-2">
 				<h4 class="text-lg font-bold">Application Type</h4>
 				<div
-					class="border-muted bg-accent items-center justify-center hover:text-accent-foreground [&:has([data-state=checked])]:bg-accent [&:has([data-state=checked])]:border-primary flex flex-col rounded-lg border-2 p-2 transition-colors"
+					class="border-muted bg-accent hover:text-accent-foreground [&:has([data-state=checked])]:bg-accent [&:has([data-state=checked])]:border-primary flex flex-col items-center justify-center rounded-lg border-2 p-2 transition-colors"
 				>
 					<svelte:component this={selectedApplicationType?.icon} class="h-6 w-6" />
 					{selectedApplicationType?.label}
@@ -62,7 +63,7 @@
 	</Button>
 	{#if isRepoLoaded}
 		<FormButton size="sm" class="w-full sm:w-auto">
-			{#if $submitting}
+			{#if isSubmitting}
 				<CircleNotch class="animate-spin" />
 			{:else}
 				<Plus />

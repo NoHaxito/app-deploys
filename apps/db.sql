@@ -53,51 +53,118 @@ CREATE TABLE instance_types(
     name TEXT NOT NULL,
     ram NUMERIC NOT NULL,
     cpu NUMERIC NOT NULL,
-    available_plans JSON NOT NULL DEFAULT '["free"]',
-    available_application_types JSON NOT NULL DEFAULT '[]'
+    available_plans JSON DEFAULT '["free"]',
+    available_service_types JSON DEFAULT '[]'
 );
 
-CREATE TABLE application_types(
+INSERT INTO
+    instance_types (
+        id,
+        name,
+        ram,
+        cpu
+    )
+VALUES
+    ('free', 'Free', 512, 0.4);
+
+CREATE TABLE service_types(
     id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
     icon_name TEXT NOT NULL,
     description TEXT DEFAULT ''
 );
 
-CREATE TABLE apps(
+CREATE TABLE service_images (
+    service_type_id TEXT PRIMARY KEY,
+    name TEXT NOT NULL image TEXT NOT NULL,
+    FOREIGN KEY(service_type_id) REFERENCES service_types(id) ON DELETE CASCADE
+);
+
+CREATE TABLE service_types_settings (
+    service_type_id TEXT PRIMARY KEY,
+    isDatabase BOOLEAN NOT NULL,
+    needsBuildSettings BOOLEAN NOT NULL,
+    needsInstallCommand BOOLEAN NOT NULL,
+    needsBuildCommand BOOLEAN NOT NULL,
+    needsStartCommand BOOLEAN NOT NULL,
+    needsRepositorySource BOOLEAN NOT NULL,
+    needsEnvironmentVariables BOOLEAN NOT NULL,
+    FOREIGN KEY(service_type_id) REFERENCES service_types(id) ON DELETE CASCADE
+);
+
+INSERT INTO
+    service_types (id, name, icon_name)
+VALUES
+    ('nodejs', 'Node.js', 'nodejs');
+
+INSERT INTO
+    service_types (id, name, icon_name, description)
+VALUES
+    (
+        'postgresql',
+        'PostgreSQL',
+        'postgresql',
+        'Deploy PostgreSQL databases with ease.'
+    );
+
+INSERT INTO
+    service_types_settings (
+        service_type_id,
+        isDatabase,
+        needsBuildSettings,
+        needsInstallCommand,
+        needsBuildCommand,
+        needsStartCommand,
+        needsRepositorySource,
+        needsEnvironmentVariables
+    )
+VALUES
+    (
+        'postgresql',
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+    );
+
+CREATE TABLE services(
     id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
-    description TEXT NOT NULL,
-    domain TEXT NOT NULL,
+    description TEXT,
     user_id TEXT NOT NULL,
+    instance_type TEXT NOT NULL,
+    service_type TEXT NOT NULL,
+    FOREIGN KEY(service_type) REFERENCES service_types(id) ON DELETE CASCADE,
     FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE app_settings(
-    app_id TEXT PRIMARY KEY,
-    repository_url TEXT NOT NULL,
-    branch TEXT NOT NULL,
-    install_command TEXT NOT NULL,
-    build_command TEXT NOT NULL,
-    start_command TEXT NOT NULL,
-    instance_type TEXT NOT NULL,
-    application_type TEXT NOT NULL,
-    FOREIGN KEY(app_id) REFERENCES apps(id) ON DELETE CASCADE,
-    FOREIGN KEY(application_type) REFERENCES application_types(id) ON DELETE CASCADE
+CREATE TABLE service_settings(
+    service_id TEXT PRIMARY KEY,
+    image TEXT DEFAULT NULL,
+    domain TEXT,
+    repository_url TEXT,
+    branch TEXT,
+    install_command TEXT,
+    build_command TEXT,
+    start_command TEXT,
+    FOREIGN KEY(service_id) REFERENCES services(id) ON DELETE CASCADE
 );
 
-CREATE TABLE app_envs(
-    app_id TEXT PRIMARY KEY,
+CREATE TABLE service_envs(
+    service_id TEXT PRIMARY KEY,
     key TEXT NOT NULL,
     value TEXT NOT NULL,
-    FOREIGN KEY(app_id) REFERENCES apps(id) ON DELETE CASCADE
+    FOREIGN KEY(service_id) REFERENCES services(id) ON DELETE CASCADE
 );
 
-CREATE TABLE app_status(
-    app_id TEXT PRIMARY KEY,
+CREATE TABLE service_status(
+    service_id TEXT PRIMARY KEY,
     status TEXT NOT NULL,
     isStarting BOOLEAN NOT NULL,
     isStopping BOOLEAN NOT NULL,
     isRunning BOOLEAN NOT NULL,
-    FOREIGN KEY(app_id) REFERENCES apps(id) ON DELETE CASCADE
+    FOREIGN KEY(service_id) REFERENCES services(id) ON DELETE CASCADE
 );

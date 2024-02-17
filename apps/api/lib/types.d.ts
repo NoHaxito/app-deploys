@@ -3,12 +3,14 @@ export interface Database {
 	user_oauth_account: OauthAccountTable;
 	user_sessions: SessionTable;
 	plans: Plans;
-	application_types: ApplicationTypes;
+	service_types: ServiceTypes;
+	service_types_settings: ServiceTypesSettings;
+	service_images: ServiceImages;
 	instance_types: InstanceTypes;
-	apps: Apps;
-	app_settings: AppSettings;
-	app_envs: AppEnvs;
-	app_status: AppStatus;
+	services: Services;
+	service_settings: ServiceSettings;
+	service_envs: ServiceEnvs;
+	service_status: ServiceStatus;
 }
 
 export interface UserTable {
@@ -39,49 +41,62 @@ export interface Plans {
 	price: number;
 }
 
-export interface ApplicationTypes {
+export interface ServiceTypes {
 	id: string;
 	name: string;
 	icon_name: string;
 	description: string;
 }
-
+export interface ServiceTypesSettings {
+	service_type_id: string;
+	isdatabase: boolean;
+	needsbuildsettings: boolean;
+	needsinstallcommand: boolean;
+	needsbuildcommand: boolean;
+	needsstartcommand: boolean;
+	needsrepositorysource: boolean;
+	needsenvironmentvariables: boolean;
+}
+export interface ServiceImages {
+	service_type_id: string;
+	image: string;
+}
 export interface InstanceTypes {
 	id: string;
 	name: string;
 	ram: string;
 	cpus: string;
 	available_plans: string[];
-	available_application_types: string[];
+	// available_application_types: string[];
 }
 
-export interface Apps {
+export interface Services {
 	id: string;
 	name: string;
-	description: string;
-	domain: string;
+	description?: string;
 	user_id: string;
-}
-
-export interface AppSettings {
-	app_id: string;
-	repository_url: string;
-	branch: string;
-	install_command: string;
-	build_command: string;
-	start_command: string;
 	instance_type: string;
-	application_type: string;
+	service_type: string;
 }
 
-export interface AppEnvs {
-	app_id: string;
+export interface ServiceSettings {
+	service_id: string;
+	repository_url?: string;
+	branch?: string;
+	install_command?: string;
+	domain?: string;
+	build_command?: string;
+	start_command?: string;
+}
+
+export interface ServiceEnvs {
+	service_id: string;
 	key: string;
 	value: string;
 }
 
-export interface AppStatus {
-	app_id: string;
+export interface ServiceStatus {
+	service_id: string;
 	status: string;
 	isStarting: boolean;
 	isStopping: boolean;

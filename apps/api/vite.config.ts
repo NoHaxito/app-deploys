@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 import honox from 'honox/vite';
-// import pages from '@hono/vite-cloudflare-pages'
+import pages from '@hono/vite-cloudflare-pages';
 // import client from 'honox/vite/client'
 import { defineConfig } from 'vite';
 
@@ -11,7 +11,7 @@ export default defineConfig(() => {
 	//   }
 	// } else {
 	return {
-		plugins: [honox()],
+		plugins: [honox(), pages()],
 		resolve: {
 			alias: [
 				{

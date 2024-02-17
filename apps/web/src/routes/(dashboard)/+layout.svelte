@@ -35,7 +35,7 @@
 	</div>
 	<Navbar user={data.user} />
 	<div class="container mx-auto flex-1">
-		<div class="flex-1 items-start md:grid md:grid-cols-[auto_minmax(0,1fr)] md:gap-6">
+		<div class="flex-1 items-start lg:grid lg:grid-cols-[auto_minmax(0,1fr)] lg:gap-6">
 			<Sidebar />
 			<main class="py-4">
 				<slot />

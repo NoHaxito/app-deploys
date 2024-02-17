@@ -8,7 +8,7 @@
 		<h3 class="text-2xl font-bold sm:text-3xl">
 			<slot name="title" />
 		</h3>
-		<p class="text-sm text-muted-foreground">
+		<p class="text-muted-foreground text-sm">
 			<slot name="description" />
 		</p>
 	</div>
