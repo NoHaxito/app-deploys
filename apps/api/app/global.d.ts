@@ -1,15 +1,19 @@
-import {} from 'hono'
+import {} from 'hono';
+import { Session, User } from 'lucia';
 
 type Head = {
-  title?: string
-}
+	title?: string;
+};
 
 declare module 'hono' {
-  interface Env {
-    Variables: {}
-    Bindings: {}
-  }
-  interface ContextRenderer {
-    (content: string | Promise<string>, head?: Head): Response | Promise<Response>
-  }
+	interface Env {
+		Variables: {
+			user: User | null;
+			session: Session | null;
+		};
+		Bindings: {};
+	}
+	interface ContextRenderer {
+		(content: string | Promise<string>, head?: Head): Response | Promise<Response>;
+	}
 }

@@ -23,6 +23,9 @@ export default defineConfig(() => {
 					replacement: resolve(__dirname, './lib')
 				}
 			]
+		},
+		ssr: {
+			external: ['stripe', 'pg']
 		}
 	};
 	// }

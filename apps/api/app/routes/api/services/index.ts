@@ -1,24 +1,18 @@
-import { authMiddleware, getSessionToken } from '@/lib/utils';
+import { auth, getSessionToken } from '@/lib/utils';
 import { cors } from 'hono/cors';
 import { db } from '@lib/db';
-
 import { Hono } from 'hono';
 
 const app = new Hono();
 app.use(cors({ origin: '*' }));
-app.use(authMiddleware);
+app.use(auth);
 
 app.get('/', async (c) => {
-	const sessionToken = getSessionToken(c.req.header().authorization ?? '');
-	const s = await db
-		.selectFrom('user_sessions')
-		.selectAll()
-		.where('id', '=', sessionToken)
-		.executeTakeFirst();
+	const session = c.get('session');
 	const services = await db
 		.selectFrom('services')
 		.selectAll()
-		.where('user_id', '=', s?.user_id!)
+		.where('user_id', '=', session?.userId!)
 		.execute();
 	return c.json(services);
 });

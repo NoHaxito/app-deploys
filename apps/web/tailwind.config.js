@@ -10,7 +10,8 @@ const config = {
 			center: true,
 			screens: {
 				md: '100%',
-				xl: '85rem'
+				lg: "80rem",
+				xl: '90rem'
 			},
 			padding: {
 				DEFAULT: '1.5rem',

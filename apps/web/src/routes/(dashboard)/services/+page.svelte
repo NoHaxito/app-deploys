@@ -48,12 +48,12 @@
 		</svelte:fragment>
 	</PageHeader>
 	{#if $services.status === 'pending'}
-		<div class="flex h-[60vh] w-full flex-1 items-center justify-center">
+		<div class="flex h-[65vh] w-full flex-1 items-center justify-center">
 			<CircleNotch class="animate-spin" />
 		</div>
 	{/if}
 	{#if $services.isError}
-		<div class="flex h-[60vh] w-full flex-1 flex-col items-center justify-center">
+		<div class="flex h-[65vh] w-full flex-1 flex-col items-center justify-center">
 			<div>Error fetching data</div>
 			<Button on:click={() => $services.refetch()}>Retry</Button>
 		</div>
@@ -62,9 +62,9 @@
 		{#if $services.data.length > 0}
 			<div>services should render here</div>
 		{:else}
-			<div class="flex h-[60vh] w-full flex-1 items-center justify-center">
+			<div class="flex h-[65vh] w-full flex-1 items-center justify-center">
 				<div
-					class="mt-4 flex h-96 w-[100%] flex-col items-center justify-center gap-2 rounded-sm border border-dashed p-4"
+					class="mt-4 flex h-full w-[100%] flex-col items-center justify-center gap-2 rounded-sm border border-dashed p-4"
 				>
 					<div class="text-center">
 						<CirclesFour class="text-muted-foreground mx-auto size-12" aria-hidden={true} />

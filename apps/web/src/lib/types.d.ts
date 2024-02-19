@@ -24,6 +24,9 @@ export interface UserTable {
 	hashed_password: string;
 	role?: 'user' | 'admin';
 	current_plan?: string;
+	stripe_customer_id?: string;
+	stripe_price_id?: string;
+	stripe_current_period_end?: Date;
 }
 
 export interface SessionTable {

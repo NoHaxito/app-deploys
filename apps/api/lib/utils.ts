@@ -1,5 +1,6 @@
 import { Context, Env } from 'hono';
 import { db } from './db';
+import { lucia } from './lucia';
 
 export const authMiddleware = async (c: Context<Env, any, {}>, next: any) => {
 	const authorizationHeader = c.req.header().authorization;
@@ -20,6 +21,24 @@ export const authMiddleware = async (c: Context<Env, any, {}>, next: any) => {
 	}
 	await next();
 };
+export const auth = async (c: Context<Env, any, {}>, next: any) => {
+	const authorizationHeader = c.req.header('Authorization');
+	const sessionId = lucia.readBearerToken(authorizationHeader ?? '');
+	if (!sessionId) {
+		return c.json(
+			{ message: 'Unauthorized' },
+			{
+				status: 401
+			}
+		);
+	}
+
+	const { session, user } = await lucia.validateSession(sessionId);
+	c.set('user', user);
+	c.set('session', session);
+	await next();
+};
+
 export const getSessionToken = (authorizationHeader: string) => {
 	const sessionToken = authorizationHeader.split('Bearer ')[1];
 	return sessionToken;

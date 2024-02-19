@@ -19,8 +19,9 @@ export interface UserTable {
 	email: string;
 	avatar_url: string;
 	hashed_password: string;
-	role?: 'user' | 'admin';
+	role?: 'user' | 'customer' | 'admin';
 	current_plan?: string;
+	stripe_customer_id?: string;
 }
 
 export interface SessionTable {
@@ -39,6 +40,7 @@ export interface Plans {
 	id: string;
 	name: string;
 	price: number;
+	stripe_price_id: string;
 }
 
 export interface ServiceTypes {

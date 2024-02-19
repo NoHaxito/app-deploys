@@ -1,8 +1,6 @@
-// @ts-ignore
-
-import { Kysely } from 'kysely';
-import { PostgresJSDialect } from 'kysely-postgres-js';
-import postgres from 'postgres';
+import pkg from 'pg';
+const Pool = pkg.Pool;
+import { Kysely, PostgresDialect } from 'kysely';
 import { env } from './env';
 import { Database } from './types';
 
@@ -18,8 +16,10 @@ const config = {
 	}
 };
 
+export const pool = new Pool(config);
+
 export const db = new Kysely<Database>({
-	dialect: new PostgresJSDialect({
-		postgres: postgres(config)
+	dialect: new PostgresDialect({
+		pool
 	})
 });
